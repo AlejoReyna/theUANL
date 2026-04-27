@@ -85,11 +85,13 @@ body.siase-plus-center[data-siase-theme='minimal'] {
 .siase-dashboard__header {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 18px;
   flex: 0 0 auto;
-  padding: 16px 18px 48px;
+  height: 124px;
+  min-height: 124px;
+  padding: 12px calc(20% + 28px) 12px 18px;
   color: #ffffff;
   background:
     radial-gradient(circle at 95% 0%, rgba(255, 199, 44, 0.2), transparent 28%),
@@ -107,7 +109,71 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__header {
 }
 
 .siase-dashboard__identity {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   min-width: 0;
+  text-align: left;
+}
+
+.siase-dashboard__identity-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 12px;
+}
+
+.siase-profile-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 20%;
+  min-width: 150px;
+  height: 100%;
+  flex: 0 0 auto;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.siase-profile-photo__avatar {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.88);
+  background:
+    linear-gradient(135deg, rgba(255, 199, 44, 0.34), rgba(0, 46, 93, 0.12)),
+    rgba(255, 255, 255, 0.08);
+  background-position: center;
+  background-size: cover;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0 12px 12px 0;
+  box-shadow: inset 18px 0 30px rgba(0, 26, 54, 0.28);
+  font-size: 42px;
+  font-weight: 900;
+  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+  transition:
+    filter 150ms ease,
+    transform 150ms ease;
+}
+
+.siase-profile-photo:hover .siase-profile-photo__avatar {
+  filter: brightness(1.08) saturate(1.08);
+  transform: scale(1.015);
+}
+
+.siase-profile-photo input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .siase-dashboard__eyebrow {
@@ -130,7 +196,10 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__header {
 }
 
 .siase-dashboard__greeting {
+  color: #fff3c4;
   font-family: Inter, ui-rounded, 'SF Pro Rounded', ui-sans-serif, system-ui, sans-serif;
+  text-align: left;
+  text-shadow: 0 8px 24px rgba(255, 199, 44, 0.18);
 }
 
 .siase-dashboard__greeting--typing::after {
@@ -148,6 +217,7 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__header {
 .siase-dashboard__student-meta {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 8px;
   margin-top: 10px;
 }
@@ -206,8 +276,9 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__student-met
 
 .siase-dashboard__tools {
   position: absolute;
-  right: 18px;
-  bottom: 16px;
+  left: 18px;
+  right: auto;
+  bottom: 12px;
   display: flex;
   align-items: center;
   gap: 12px;

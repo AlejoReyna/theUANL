@@ -40,6 +40,10 @@ function normalizeFirstName(studentInfo?: StudentInfo): string {
   return `${normalized.charAt(0).toLocaleUpperCase('es-MX')}${normalized.slice(1)}`;
 }
 
+function studentInitial(studentInfo?: StudentInfo): string {
+  return normalizeFirstName(studentInfo).charAt(0).toLocaleUpperCase('es-MX') || 'U';
+}
+
 function actionIcon(label: string): string {
   const normalized = label.toLowerCase();
   if (/horario/.test(normalized)) return 'calendar';
@@ -144,7 +148,9 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
   shell.innerHTML = `
     <header class="siase-dashboard__header siase-entrance siase-entrance--header">
       <div class="siase-dashboard__identity">
-        <h1 class="siase-dashboard__greeting">¡Hola! Estudiante</h1>
+        <div class="siase-dashboard__identity-row">
+          <h1 class="siase-dashboard__greeting">¡Hola! Estudiante</h1>
+        </div>
         <div class="siase-dashboard__student-meta" aria-label="Información académica">
           <span><strong>Carrera</strong><em data-student-career>No disponible</em></span>
           <span><strong>Plan de estudios</strong><em data-student-plan>No disponible</em></span>
@@ -163,6 +169,10 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
           </div>
         </div>
       </div>
+      <label class="siase-profile-photo" aria-label="Subir imagen de perfil">
+        <span class="siase-profile-photo__avatar">U</span>
+        <input data-profile-photo-input type="file" accept="image/*" />
+      </label>
     </header>
     <main class="siase-dashboard__main">
       <section class="siase-dashboard__primary">
@@ -250,9 +260,39 @@ function setStoredTheme(frameDocument: Document, theme: string): void {
   }
 }
 
+function getStoredProfilePhoto(frameDocument: Document): string | undefined {
+  try {
+    return (
+      frameDocument.defaultView?.sessionStorage.getItem('siase-plus-profile-photo') ?? undefined
+    );
+  } catch {
+    return undefined;
+  }
+}
+
+function setStoredProfilePhoto(frameDocument: Document, photo: string): void {
+  try {
+    frameDocument.defaultView?.sessionStorage.setItem('siase-plus-profile-photo', photo);
+  } catch {
+    // The uploaded preview can still be shown for this render even when storage is blocked.
+  }
+}
+
 function applyTheme(frameDocument: Document, theme: string): void {
   frameDocument.body.dataset.siaseTheme = theme;
   setStoredTheme(frameDocument, theme);
+}
+
+function renderProfilePhoto(
+  shell: HTMLElement,
+  photo: string | undefined,
+  fallbackInitial: string
+): void {
+  const avatar = shell.querySelector<HTMLElement>('.siase-profile-photo__avatar');
+  if (!avatar) return;
+
+  avatar.textContent = photo ? '' : fallbackInitial;
+  avatar.style.backgroundImage = photo ? `url(${JSON.stringify(photo)})` : '';
 }
 
 function hydrateThemeControls(shell: HTMLElement, frameDocument: Document): void {
@@ -281,6 +321,32 @@ function hydrateThemeControls(shell: HTMLElement, frameDocument: Document): void
   });
 }
 
+function hydrateProfilePhotoControls(
+  shell: HTMLElement,
+  frameDocument: Document,
+  studentInfo: StudentInfo | undefined
+): void {
+  renderProfilePhoto(shell, getStoredProfilePhoto(frameDocument), studentInitial(studentInfo));
+
+  if (shell.dataset.profilePhotoControlsReady === 'true') return;
+  shell.dataset.profilePhotoControlsReady = 'true';
+
+  const input = shell.querySelector<HTMLInputElement>('[data-profile-photo-input]');
+  input?.addEventListener('change', () => {
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      const photo = typeof reader.result === 'string' ? reader.result : undefined;
+      if (!photo) return;
+      setStoredProfilePhoto(frameDocument, photo);
+      renderProfilePhoto(shell, photo, studentInitial(studentInfo));
+    });
+    reader.readAsDataURL(file);
+  });
+}
+
 function renderShellData(
   shell: HTMLElement,
   studentInfo: StudentInfo | undefined,
@@ -302,6 +368,8 @@ function renderShellData(
   if (greeting) {
     typeGreeting(greeting, `¡Hola! ${normalizeFirstName(studentInfo)}`);
   }
+
+  hydrateProfilePhotoControls(shell, shell.ownerDocument, studentInfo);
 
   if (career) {
     career.textContent = studentInfo?.program || 'No disponible';
