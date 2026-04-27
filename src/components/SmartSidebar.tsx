@@ -98,6 +98,12 @@ function Icon({ name }: { name: string }): JSX.Element {
         <path d="M8.5 12.5 11 15l4.5-4.5" />
       </>
     ),
+    'log-out': (
+      <>
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <path d="M16 17l5-5-5-5M21 12H9" />
+      </>
+    ),
     receipt: (
       <>
         <path d="M6 3h12v18l-2-1-2 1-2-1-2 1-2-1-2 1V3Z" />
@@ -183,6 +189,29 @@ export function SmartSidebar({
     setOpenCategories((current) => ({ ...current, [category]: !current[category] }));
   }
 
+  function handleLogout(): void {
+    const logoutControl = Array.from(
+      document.querySelectorAll<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>(
+        'a, button, input[type="button"], input[type="submit"]'
+      )
+    ).find((element) => {
+      const label = element instanceof HTMLInputElement ? element.value : element.textContent;
+      return /salir|cerrar\s+sesi[oó]n|logout/i.test(label ?? '');
+    });
+
+    if (logoutControl instanceof HTMLAnchorElement && logoutControl.href) {
+      window.top?.location.assign(logoutControl.href);
+      return;
+    }
+
+    if (logoutControl) {
+      logoutControl.click();
+      return;
+    }
+
+    window.top?.location.assign('/');
+  }
+
   const renderItem = (item: MenuItem) => (
     <li key={item.id} className={`quest-card quest-card--${item.category}`}>
       <a href={item.href} target={item.target} rel="noreferrer" className="quest-link">
@@ -255,6 +284,13 @@ export function SmartSidebar({
           </section>
         ))}
       </div>
+
+      <footer className="sidebar-logout">
+        <button type="button" className="sidebar-logout-button" onClick={handleLogout}>
+          <Icon name="log-out" />
+          <span>Cerrar sesión</span>
+        </button>
+      </footer>
     </nav>
   );
 }

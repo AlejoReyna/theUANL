@@ -31,7 +31,7 @@
   width: 280px;
   height: 100vh;
   min-height: 100vh;
-  padding: 16px 14px;
+  padding: 16px 14px 84px;
   overflow: hidden;
   background: linear-gradient(180deg, var(--primary-color) 0%, #001a36 100%);
   color: #eff6ff;
@@ -162,7 +162,7 @@
   flex-direction: column;
   gap: 8px;
   min-height: 0;
-  padding-bottom: 2px;
+  padding-bottom: 10px;
 }
 
 .quest-category-list > .quest-section {
@@ -369,10 +369,49 @@
   border-color: var(--secondary-color);
 }
 
+.sidebar-logout {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  padding-top: 12px;
+  background: linear-gradient(180deg, rgba(0, 26, 54, 0), #001a36 34%);
+}
+
+.sidebar-logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 14px;
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-logout-button:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+.sidebar-logout-button .sidebar-icon {
+  width: 18px;
+  height: 18px;
+  color: #fca5a5;
+}
+
 @media (max-width: 100px) {
   .siase-game-panel {
     width: 76px;
-    padding: 12px 10px;
+    padding: 12px 10px 76px;
   }
 
   .game-panel-header {
@@ -392,8 +431,19 @@
   .quest-section-meta,
   .quest-copy,
   .pin-button,
+  .sidebar-logout-button span,
   .quest-section > h2 {
     display: none;
+  }
+
+  .sidebar-logout {
+    right: 10px;
+    left: 10px;
+  }
+
+  .sidebar-logout-button {
+    min-height: 48px;
+    padding: 0;
   }
 
   .game-search-field {
