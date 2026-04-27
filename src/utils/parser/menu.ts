@@ -1,5 +1,40 @@
 import type { CategorizedMenu, MenuCategory, MenuItem } from '@/types/menu';
 import { textContent } from './dom';
-function inferCategory(label: string): MenuCategory { const normalized = label.toLowerCase(); if (/kardex|calif|materia|acad/.test(normalized)) return 'academic'; if (/horario|clase/.test(normalized)) return 'schedule'; if (/pago|cuota|recibo/.test(normalized)) return 'payments'; if (/dato|personal|situaci/.test(normalized)) return 'profile'; if (/servicio|beca|foto/.test(normalized)) return 'services'; return 'other'; }
-export function parseMenuItems(document: Document): MenuItem[] { return Array.from(document.querySelectorAll<HTMLAnchorElement>('ul.menu.collapsible li a[target="center"]')).map((anchor, index) => { const label = textContent(anchor); return { id: `${index}-${label}`, label, href: anchor.href, target: anchor.target, category: inferCategory(label), pinned: false }; }); }
-export function categorizeMenuItems(items: MenuItem[]): CategorizedMenu[] { const categories = new Map<MenuCategory, MenuItem[]>(); items.forEach((item) => categories.set(item.category, [...(categories.get(item.category) ?? []), item])); return Array.from(categories.entries()).map(([category, categoryItems]) => ({ category, items: categoryItems })); }
+
+function inferCategory(label: string): MenuCategory {
+  const normalized = label.toLowerCase();
+  if (/kardex|calif|materia|acad|promedio|avance/.test(normalized)) return 'academic';
+  if (/horario|clase|agenda/.test(normalized)) return 'schedule';
+  if (/pago|cuota|recibo|adeudo|finanza|beca/.test(normalized)) return 'payments';
+  if (/dato|personal|situaci|estatus|perfil|foto/.test(normalized)) return 'profile';
+  if (/tramite|solicitud|constancia|servicio|voluntariado/.test(normalized)) return 'services';
+  if (/programa|curso|taller|actividad/.test(normalized)) return 'other';
+  return 'other';
+}
+
+export function parseMenuItems(document: Document): MenuItem[] {
+  return Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('ul.menu.collapsible li a[target="center"]')
+  ).map((anchor, index) => {
+    const label = textContent(anchor);
+    return {
+      id: `${index}-${label}`,
+      label,
+      href: anchor.href,
+      target: anchor.target,
+      category: inferCategory(label),
+      pinned: false
+    };
+  });
+}
+
+export function categorizeMenuItems(items: MenuItem[]): CategorizedMenu[] {
+  const categories = new Map<MenuCategory, MenuItem[]>();
+  items.forEach((item) =>
+    categories.set(item.category, [...(categories.get(item.category) ?? []), item])
+  );
+  return Array.from(categories.entries()).map(([category, categoryItems]) => ({
+    category,
+    items: categoryItems
+  }));
+}

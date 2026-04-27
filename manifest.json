@@ -46,6 +46,7 @@
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/ecSitEst01.htm*"
       ],
       "js": ["src/content/router.ts"],
+      "css": ["src/content/styles/center.css"],
       "all_frames": true,
       "run_at": "document_idle"
     }

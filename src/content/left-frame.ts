@@ -3,10 +3,13 @@ import { SmartSidebar } from '@/components/SmartSidebar';
 import { injectReactRoot } from '@/shadow-dom/inject-react-root';
 import { parseMenuItems } from '@/utils/parser/menu';
 import { getStorageValue, setStorageValue } from '@/utils/storage';
+import { collapseLegacyFrames, logFramesetState } from './single-view-layout';
 
 export async function initializeLeftFrame(frameDocument: Document): Promise<void> {
   if (window.name !== 'left') return;
 
+  logFramesetState('left-frame initialize');
+  collapseLegacyFrames();
   frameDocument.body.classList.add('siase-plus-left');
 
   // --- Matricula & session ---
@@ -32,7 +35,9 @@ export async function initializeLeftFrame(frameDocument: Document): Promise<void
 
   // Keep the password available for any future session-replay utilities,
   // stored under the session key separate from the public studentInfo shape.
-  void chrome.storage.session?.set?.({ siasePwd: password });
+  void chrome.storage.session?.set?.({ siasePwd: password }).catch((error) => {
+    console.debug('[SIASE Plus] chrome.storage.session unavailable in left frame', error);
+  });
 
   // --- Menu ---
   const items = parseMenuItems(frameDocument);

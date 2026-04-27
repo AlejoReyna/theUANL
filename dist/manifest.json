@@ -29,7 +29,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/frameset-injector.ts-B762IZ76.js"
+        "assets/frameset-injector.ts-loader--RHArjLZ.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*default.htm*"
@@ -39,7 +39,7 @@
     },
     {
       "js": [
-        "assets/top-frame.ts-loader-CT7tilyI.js"
+        "assets/top-frame.ts-loader-DQY5iBkc.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*maintop.htm*"
@@ -52,7 +52,7 @@
     },
     {
       "js": [
-        "assets/left-frame.ts-loader-DKLEWqun.js"
+        "assets/left-frame.ts-loader-Cy2seSM5.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*mainleftdin01.htm*"
@@ -65,7 +65,7 @@
     },
     {
       "js": [
-        "assets/center-frame.ts-BxnQZ0J_.js"
+        "assets/center-frame.ts-loader-DWr2aPuK.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*maincenter.htm*"
@@ -78,7 +78,7 @@
     },
     {
       "js": [
-        "assets/router.ts-loader-Bq8hNk7W.js"
+        "assets/router.ts-loader-BQ813bmH.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/econcfs01.htm*",
@@ -87,6 +87,9 @@
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/edatal01.htm*",
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/ecohoinsint01.htm*",
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/ecSitEst01.htm*"
+      ],
+      "css": [
+        "src/content/styles/center.css"
       ],
       "all_frames": true,
       "run_at": "document_idle"
@@ -100,20 +103,24 @@
       "resources": [
         "src/content/styles/shadow.css",
         "icons/*.png",
-        "assets/frameset-injector.ts-B762IZ76.js",
-        "assets/frameset-injector.ts-B762IZ76.js.map",
-        "assets/dom-DsnxF-Y-.js",
-        "assets/dom-DsnxF-Y-.js.map",
+        "assets/single-view-layout-CjfIBAyQ.js",
+        "assets/single-view-layout-CjfIBAyQ.js.map",
+        "assets/frameset-injector.ts-DmTklrWy.js",
+        "assets/frameset-injector.ts-DmTklrWy.js.map",
+        "assets/dom-Df3yQYNr.js",
+        "assets/dom-Df3yQYNr.js.map",
         "assets/storage-CGf68QnW.js",
         "assets/storage-CGf68QnW.js.map",
-        "assets/top-frame.ts-C07y4Fcc.js",
-        "assets/top-frame.ts-C07y4Fcc.js.map",
-        "assets/jsx-runtime-C7ZK4u-l.js",
-        "assets/jsx-runtime-C7ZK4u-l.js.map",
-        "assets/left-frame.ts-QdLksC_z.js",
-        "assets/left-frame.ts-QdLksC_z.js.map",
-        "assets/center-frame.ts-BxnQZ0J_.js",
-        "assets/center-frame.ts-BxnQZ0J_.js.map"
+        "assets/top-frame.ts-BDvliN-1.js",
+        "assets/top-frame.ts-BDvliN-1.js.map",
+        "assets/jsx-runtime-18NIdeNA.js",
+        "assets/jsx-runtime-18NIdeNA.js.map",
+        "assets/left-frame.ts-AT2rpSKc.js",
+        "assets/left-frame.ts-AT2rpSKc.js.map",
+        "assets/center-ui-DbXP3qVR.js",
+        "assets/center-ui-DbXP3qVR.js.map",
+        "assets/center-frame.ts-BKra8DBA.js",
+        "assets/center-frame.ts-BKra8DBA.js.map"
       ],
       "use_dynamic_url": false
     },
@@ -127,12 +134,14 @@
         "https://deimos.dgi.uanl.mx/*"
       ],
       "resources": [
-        "assets/dom-DsnxF-Y-.js",
-        "assets/dom-DsnxF-Y-.js.map",
+        "assets/center-ui-DbXP3qVR.js",
+        "assets/center-ui-DbXP3qVR.js.map",
+        "assets/dom-Df3yQYNr.js",
+        "assets/dom-Df3yQYNr.js.map",
         "assets/storage-CGf68QnW.js",
         "assets/storage-CGf68QnW.js.map",
-        "assets/router.ts-DBtYgAWO.js",
-        "assets/router.ts-DBtYgAWO.js.map"
+        "assets/router.ts-CmGa8jgn.js",
+        "assets/router.ts-CmGa8jgn.js.map"
       ],
       "use_dynamic_url": false
     }

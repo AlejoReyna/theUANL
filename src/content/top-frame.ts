@@ -1,9 +1,12 @@
+import { collapseLegacyFrames, logFramesetState } from './single-view-layout';
 import { parseStudentInfo } from '@/utils/parser/student';
 import { getStorageValue, setStorageValue } from '@/utils/storage';
 
 export async function initializeTopFrame(frameDocument: Document): Promise<void> {
   if (window.name !== 'top') return;
 
+  logFramesetState('top-frame initialize');
+  collapseLegacyFrames();
   frameDocument.body.classList.add('siase-plus-top');
 
   const parsed = parseStudentInfo(frameDocument);

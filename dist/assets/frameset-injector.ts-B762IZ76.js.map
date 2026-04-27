@@ -1,1 +1,0 @@
-{"version":3,"file":"frameset-injector.ts-B762IZ76.js","names":[],"sources":["../../src/content/frameset-injector.ts"],"sourcesContent":["export function initializeFramesetInjector(): void { document.documentElement.dataset.siasePlus = 'ready'; }\ninitializeFramesetInjector();\n"],"mappings":"AAAA,SAAgB,GAAmC,CAAE,SAAS,gBAAgB,QAAQ,UAAY,QAClG,GAA4B"}

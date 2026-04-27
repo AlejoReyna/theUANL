@@ -1,2 +1,0 @@
-import{n as e,t}from"./storage-CGf68QnW.js";import{n}from"./dom-DsnxF-Y-.js";function r(e,t){let r=n(e.querySelector(`table.MenuLink tr:first-child span.style1`)),i=t?.querySelector(`input[name="HTMLUsuario"]`)?.value??``,[a=r]=r.split(/\s+-\s+/);return{name:a.trim(),matricula:i}}async function i(n){if(window.name!==`top`)return;n.body.classList.add(`siase-plus-top`);let i=r(n),a=await t(`studentInfo`);await e(`studentInfo`,{...i,matricula:a?.matricula||i.matricula})}i(document);
-//# sourceMappingURL=top-frame.ts-C07y4Fcc.js.map
