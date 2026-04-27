@@ -17,11 +17,12 @@ export async function initializeTopFrame(frameDocument: Document): Promise<void>
   // when it calls setStorageValue with its own merge.
   const existing = await getStorageValue('studentInfo');
   await setStorageValue('studentInfo', {
+    ...existing,
     ...parsed,
     // Prefer the matricula already stored by left-frame (authoritative hidden
     // input) over the empty string that parseStudentInfo returns when called
     // without a leftDocument argument.
-    matricula: existing?.matricula || parsed.matricula,
+    matricula: existing?.matricula || parsed.matricula
   });
 }
 

@@ -27,9 +27,10 @@ export async function initializeLeftFrame(frameDocument: Document): Promise<void
       name: existing?.name ?? '',
       program: existing?.program,
       faculty: existing?.faculty,
+      plan: existing?.plan,
       ...existing,
       // Always overwrite matricula with the authoritative value from the form.
-      matricula,
+      matricula
     });
   }
 
@@ -49,9 +50,9 @@ export async function initializeLeftFrame(frameDocument: Document): Promise<void
       query: '',
       pinnedIds: [],
       onQueryChange: () => undefined,
-      onTogglePinned: () => undefined,
+      onTogglePinned: () => undefined
     }),
-    { id: 'siase-plus-sidebar', document: frameDocument },
+    { id: 'siase-plus-sidebar', document: frameDocument }
   );
 }
 

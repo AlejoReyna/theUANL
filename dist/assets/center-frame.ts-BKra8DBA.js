@@ -1,2 +1,0 @@
-import{t as e}from"./center-ui-DbXP3qVR.js";import{r as t,t as n}from"./single-view-layout-CjfIBAyQ.js";async function r(r){window.name===`center`&&(t(`center-frame initialize`),n(),e(r))}r(document);
-//# sourceMappingURL=center-frame.ts-BKra8DBA.js.map

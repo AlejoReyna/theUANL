@@ -141,12 +141,12 @@ export function SmartSidebar({
   const [localQuery, setLocalQuery] = useState(query);
   const [localPinnedIds, setLocalPinnedIds] = useState<string[]>(pinnedIds);
   const [openCategories, setOpenCategories] = useState<Record<MenuItem['category'], boolean>>({
-    academic: true,
-    schedule: true,
-    payments: true,
-    services: true,
-    profile: true,
-    other: true
+    academic: false,
+    schedule: false,
+    payments: false,
+    services: false,
+    profile: false,
+    other: false
   });
 
   const filteredItems = useMemo(
@@ -217,11 +217,13 @@ export function SmartSidebar({
         onChange={handleQueryChange}
       />
 
+      {/*
       <section className="sidebar-summary" aria-label="Servicios disponibles">
         <strong>{filteredItems.length}</strong>
         <span>{localQuery ? 'resultados encontrados' : 'servicios disponibles'}</span>
       </section>
 
+      */}
       {pinnedItems.length ? (
         <section className="quest-section">
           <h2>Favoritas</h2>
@@ -229,23 +231,30 @@ export function SmartSidebar({
         </section>
       ) : null}
 
-      {categorizedItems.map(({ category, items: categoryItems }) => (
-        <section className="quest-section" key={category}>
-          <button
-            type="button"
-            className="quest-section-toggle"
-            aria-expanded={openCategories[category]}
-            onClick={() => toggleCategory(category)}
+      <div className="quest-category-list">
+        {categorizedItems.map(({ category, items: categoryItems }) => (
+          <section
+            className={
+              openCategories[category] ? 'quest-section quest-section--open' : 'quest-section'
+            }
+            key={category}
           >
-            <span className="quest-section-title">
-              <Icon name={iconByCategory[category]} />
-              <span>{categoryLabels[category]}</span>
-            </span>
-            <span className="quest-section-meta">{categoryItems.length}</span>
-          </button>
-          {openCategories[category] ? <ul>{categoryItems.map(renderItem)}</ul> : null}
-        </section>
-      ))}
+            <button
+              type="button"
+              className="quest-section-toggle"
+              aria-expanded={openCategories[category]}
+              onClick={() => toggleCategory(category)}
+            >
+              <span className="quest-section-title">
+                <Icon name={iconByCategory[category]} />
+                <span>{categoryLabels[category]}</span>
+              </span>
+              <span className="quest-section-meta">{categoryItems.length}</span>
+            </button>
+            {openCategories[category] ? <ul>{categoryItems.map(renderItem)}</ul> : null}
+          </section>
+        ))}
+      </div>
     </nav>
   );
 }

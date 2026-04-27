@@ -26,10 +26,13 @@
 .siase-game-panel {
   position: fixed;
   inset: 0;
+  display: flex;
+  flex-direction: column;
   width: 280px;
+  height: 100vh;
   min-height: 100vh;
   padding: 16px 14px;
-  overflow-y: auto;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--primary-color) 0%, #001a36 100%);
   color: #eff6ff;
   border-right: 1px solid rgba(255, 255, 255, 0.16);
@@ -88,6 +91,7 @@
   top: 76px;
   z-index: 2;
   display: block;
+  flex: 0 0 auto;
   margin-bottom: 12px;
 }
 
@@ -152,6 +156,27 @@
   margin-top: 12px;
 }
 
+.quest-category-list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding-bottom: 2px;
+}
+
+.quest-category-list > .quest-section {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-height: 58px;
+  margin-top: 0;
+}
+
+.quest-category-list > .quest-section--open {
+  flex: 0 0 auto;
+}
+
 .quest-section > h2,
 .quest-section-toggle {
   width: 100%;
@@ -168,23 +193,51 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 0;
+  min-height: 64px;
+  height: 100%;
+  padding: 12px 10px;
   background: transparent;
   border: 0;
+  border-left: 4px solid transparent;
+  border-radius: 12px;
   cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.quest-category-list > .quest-section:not(.quest-section--open) .quest-section-toggle {
+  flex: 1 1 auto;
+}
+
+.quest-section-toggle:hover {
+  background: rgba(255, 199, 44, 0.08);
+}
+
+.quest-section--open > .quest-section-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: var(--secondary-color);
 }
 
 .quest-section-title {
   display: inline-flex;
   align-items: center;
   min-width: 0;
-  gap: 8px;
+  gap: 10px;
 }
 
 .quest-section-title .sidebar-icon {
   width: 17px;
   height: 17px;
   color: var(--secondary-color);
+}
+
+.quest-section-title span {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .quest-section-meta {
@@ -208,12 +261,18 @@
   list-style: none;
 }
 
+.quest-section--open ul {
+  max-height: 46vh;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
 .quest-card {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 6px;
   align-items: center;
-  padding: 8px;
+  padding: 11px 9px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-left: 3px solid var(--secondary-color);
@@ -249,7 +308,7 @@
 .quest-link {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   min-width: 0;
   color: inherit;
   text-decoration: none;
