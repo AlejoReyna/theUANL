@@ -1,0 +1,1 @@
+export function adoptShadowStyles(root: ShadowRoot, cssText: string): void { const sheet = new CSSStyleSheet(); sheet.replaceSync(cssText); root.adoptedStyleSheets = [...root.adoptedStyleSheets, sheet]; }

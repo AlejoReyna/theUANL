@@ -1,0 +1,2 @@
+export interface ShadowRootHostOptions { id: string; document: Document; parent?: Element; }
+export function createShadowRootHost({ id, document, parent = document.body }: ShadowRootHostOptions): ShadowRoot { const existing = document.getElementById(id); if (existing?.shadowRoot) return existing.shadowRoot; const host = document.createElement('div'); host.id = id; parent.append(host); return host.attachShadow({ mode: 'open' }); }
