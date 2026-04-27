@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { type CSSProperties, useMemo, useState } from 'react';
 import type { MenuItem } from '@/types/menu';
 import { PinButton } from './PinButton';
 import { SearchInput } from './SearchInput';
@@ -261,12 +261,13 @@ export function SmartSidebar({
       ) : null}
 
       <div className="quest-category-list">
-        {categorizedItems.map(({ category, items: categoryItems }) => (
+        {categorizedItems.map(({ category, items: categoryItems }, index) => (
           <section
             className={
               openCategories[category] ? 'quest-section quest-section--open' : 'quest-section'
             }
             key={category}
+            style={{ '--entry-delay': `${120 + index * 70}ms` } as CSSProperties}
           >
             <button
               type="button"

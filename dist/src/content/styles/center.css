@@ -57,6 +57,31 @@ body.siase-plus-center[data-siase-theme='minimal'] {
   overflow: hidden;
 }
 
+.siase-entrance {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: siaseFadeUp 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.siase-entrance--header {
+  transform: translateY(10px) scale(0.985);
+  filter: blur(4px);
+  animation-name: siaseHeaderReveal;
+  animation-duration: 680ms;
+}
+
+.siase-entrance--progress {
+  animation-delay: 360ms;
+}
+
+.siase-entrance--events {
+  animation-delay: 620ms;
+}
+
+.siase-entrance--quick {
+  animation-delay: 820ms;
+}
+
 .siase-dashboard__header {
   position: relative;
   display: flex;
@@ -108,6 +133,18 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__header {
   font-family: Inter, ui-rounded, 'SF Pro Rounded', ui-sans-serif, system-ui, sans-serif;
 }
 
+.siase-dashboard__greeting--typing::after {
+  content: '';
+  display: inline-block;
+  width: 0.08em;
+  height: 0.92em;
+  margin-left: 0.08em;
+  transform: translateY(0.08em);
+  background: var(--secondary-color);
+  border-radius: 999px;
+  animation: siaseCaretBlink 760ms steps(2, start) infinite;
+}
+
 .siase-dashboard__student-meta {
   display: flex;
   flex-wrap: wrap;
@@ -127,6 +164,21 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__header {
   border-radius: 999px;
   font-size: 12px;
   line-height: 1.2;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: siaseFadeUp 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.siase-dashboard__student-meta span:nth-child(1) {
+  animation-delay: 520ms;
+}
+
+.siase-dashboard__student-meta span:nth-child(2) {
+  animation-delay: 600ms;
+}
+
+.siase-dashboard__student-meta span:nth-child(3) {
+  animation-delay: 680ms;
 }
 
 .siase-dashboard__student-meta strong {
@@ -339,6 +391,8 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__student-met
   height: 100%;
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   border-radius: inherit;
+  transform-origin: left center;
+  animation: siaseProgressGrow 900ms 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
   transition: width 180ms ease;
 }
 
@@ -384,6 +438,9 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__student-met
   border: 1px solid var(--border-color);
   border-radius: 12px;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: siaseFadeUp 460ms var(--entry-delay, 760ms) cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .siase-event__icon {
@@ -462,6 +519,10 @@ body.siase-plus-center[data-siase-theme='minimal'] .siase-dashboard__student-met
   border-radius: 12px;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
   text-decoration: none !important;
+  opacity: 0;
+  transform: translateX(16px);
+  animation: siaseSlideInRight 460ms var(--entry-delay, 940ms) cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
   transition:
     transform 150ms ease,
     box-shadow 150ms ease,
@@ -554,6 +615,82 @@ body.siase-plus-single-view > :not(#siase-plus-shell):not(script):not(style) {
 
 body.siase-plus-center a {
   color: var(--primary-color) !important;
+}
+
+@keyframes siaseHeaderReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes siaseFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes siaseSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes siaseProgressGrow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes siaseCaretBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .siase-entrance,
+  .siase-dashboard__student-meta span,
+  .siase-academic-progress__track span,
+  .siase-event,
+  .siase-dashboard__quick-card {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .siase-dashboard__greeting--typing::after {
+    display: none;
+  }
 }
 
 @media (max-width: 720px) {

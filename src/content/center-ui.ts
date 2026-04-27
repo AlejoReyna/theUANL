@@ -112,11 +112,37 @@ function missingCreditsText(studentStatus?: StudentStatus): string {
   return `Faltan ${missingCredits} créditos para completar el plan de referencia actual.`;
 }
 
+function typeGreeting(element: HTMLElement, text: string): void {
+  if (element.dataset.typedGreeting === text) return;
+  element.dataset.typedGreeting = text;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    element.textContent = text;
+    element.classList.remove('siase-dashboard__greeting--typing');
+    return;
+  }
+
+  element.textContent = '';
+  element.classList.add('siase-dashboard__greeting--typing');
+
+  let index = 0;
+  const timer = window.setInterval(() => {
+    element.textContent = text.slice(0, index + 1);
+    index += 1;
+
+    if (index >= text.length) {
+      window.clearInterval(timer);
+      window.setTimeout(() => element.classList.remove('siase-dashboard__greeting--typing'), 800);
+    }
+  }, 42);
+}
+
 function createShell(frameDocument: Document, questLabel: string): HTMLElement {
   const shell = frameDocument.createElement('section');
   shell.id = 'siase-plus-shell';
   shell.innerHTML = `
-    <header class="siase-dashboard__header">
+    <header class="siase-dashboard__header siase-entrance siase-entrance--header">
       <div class="siase-dashboard__identity">
         <h1 class="siase-dashboard__greeting">¡Hola! Estudiante</h1>
         <div class="siase-dashboard__student-meta" aria-label="Información académica">
@@ -140,7 +166,7 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
     </header>
     <main class="siase-dashboard__main">
       <section class="siase-dashboard__primary">
-        <article class="siase-dashboard__section siase-global-progress">
+        <article class="siase-dashboard__section siase-global-progress siase-entrance siase-entrance--progress">
           <div class="siase-dashboard__section-heading">
             <div>
               <p class="siase-dashboard__eyebrow">Tu Avance Global</p>
@@ -154,7 +180,7 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
               <strong><em data-academic-credits>No disponible</em> / ${FALLBACK_TOTAL_CREDITS}</strong>
             </div>
             <div class="siase-academic-progress__track">
-              <span data-academic-progress-bar style="width: 0%"></span>
+              <span data-academic-progress-bar style="width: 0%; --progress-width: 0%"></span>
             </div>
             <p class="siase-academic-progress__description" data-academic-missing-credits>
               El progreso se actualizará cuando haya datos académicos disponibles.
@@ -164,7 +190,7 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
             </div>
           </div>
         </article>
-        <section class="siase-dashboard__section siase-events" aria-label="Próximos eventos">
+        <section class="siase-dashboard__section siase-events siase-entrance siase-entrance--events" aria-label="Próximos eventos">
           <div class="siase-dashboard__section-heading">
             <div>
               <p class="siase-dashboard__eyebrow">Próximos Eventos</p>
@@ -172,7 +198,7 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
             </div>
           </div>
           <div class="siase-events__list">
-            <article class="siase-event">
+            <article class="siase-event" style="--entry-delay: 760ms">
               <span class="siase-event__icon">${iconMarkup('calendar')}</span>
               <span class="siase-event__copy">
                 <strong>Revisar horario</strong>
@@ -180,7 +206,7 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
               </span>
               <span class="siase-event__date">Próximo</span>
             </article>
-            <article class="siase-event">
+            <article class="siase-event" style="--entry-delay: 860ms">
               <span class="siase-event__icon">${iconMarkup('money')}</span>
               <span class="siase-event__copy">
                 <strong>Recibo de cuota interna</strong>
@@ -191,7 +217,7 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
           </div>
         </section>
       </section>
-      <aside class="siase-dashboard__section siase-quick-panel" aria-label="Acciones rápidas">
+      <aside class="siase-dashboard__section siase-quick-panel siase-entrance siase-entrance--quick" aria-label="Acciones rápidas">
         <div class="siase-dashboard__section-heading">
           <div>
             <p class="siase-dashboard__eyebrow">Acciones Rápidas</p>
@@ -274,7 +300,7 @@ function renderShellData(
   const status = shell.querySelector<HTMLElement>('[data-student-status]');
 
   if (greeting) {
-    greeting.textContent = `¡Hola! ${normalizeFirstName(studentInfo)}`;
+    typeGreeting(greeting, `¡Hola! ${normalizeFirstName(studentInfo)}`);
   }
 
   if (career) {
@@ -296,6 +322,7 @@ function renderShellData(
   const progressPercent = creditProgressPercent(studentStatus);
   if (progressBar) {
     progressBar.style.width = `${progressPercent}%`;
+    progressBar.style.setProperty('--progress-width', `${progressPercent}%`);
   }
 
   if (progressLabel) {
@@ -317,11 +344,12 @@ function renderShellData(
   if (!actions) return;
   actions.replaceChildren();
 
-  actionItems(menuItems).forEach((item) => {
+  actionItems(menuItems).forEach((item, index) => {
     const link = actions.ownerDocument.createElement('a');
     link.href = item.href;
     link.target = 'center';
     link.className = `siase-dashboard__quick-card siase-dashboard__quick-card--${item.category}`;
+    link.style.setProperty('--entry-delay', `${940 + index * 90}ms`);
 
     const icon = actions.ownerDocument.createElement('span');
     icon.className = 'siase-dashboard__quick-icon';
