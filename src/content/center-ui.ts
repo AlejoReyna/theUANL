@@ -1,6 +1,7 @@
 import type { MenuItem } from '@/types/menu';
 import type { StudentInfo, StudentStatus } from '@/types/student';
 import { getStorageValue } from '@/utils/storage';
+import { applyTheme, getStoredTheme } from './theme';
 
 function currentQuestLabel(pathname: string): string {
   const pageName = pathname.split('/').pop()?.toLowerCase() ?? '';
@@ -244,22 +245,6 @@ function createShell(frameDocument: Document, questLabel: string): HTMLElement {
   return shell;
 }
 
-function getStoredTheme(frameDocument: Document): string {
-  try {
-    return frameDocument.defaultView?.localStorage.getItem('siase-plus-theme') ?? 'institutional';
-  } catch {
-    return 'institutional';
-  }
-}
-
-function setStoredTheme(frameDocument: Document, theme: string): void {
-  try {
-    frameDocument.defaultView?.localStorage.setItem('siase-plus-theme', theme);
-  } catch {
-    // Some portal contexts can disable localStorage; theme still applies for this view.
-  }
-}
-
 function getStoredProfilePhoto(frameDocument: Document): string | undefined {
   try {
     return (
@@ -276,11 +261,6 @@ function setStoredProfilePhoto(frameDocument: Document, photo: string): void {
   } catch {
     // The uploaded preview can still be shown for this render even when storage is blocked.
   }
-}
-
-function applyTheme(frameDocument: Document, theme: string): void {
-  frameDocument.body.dataset.siaseTheme = theme;
-  setStoredTheme(frameDocument, theme);
 }
 
 function renderProfilePhoto(
@@ -452,6 +432,10 @@ export function initializeCenterGameUi(
   url = new URL(location.href)
 ): void {
   frameDocument.body.classList.add('siase-plus-center', 'siase-plus-single-view');
+  frameDocument.body.classList.toggle(
+    'siase-plus-main-center',
+    url.pathname.toLowerCase().includes('maincenter.htm')
+  );
 
   const questLabel = currentQuestLabel(url.pathname);
   const existingShell = frameDocument.getElementById('siase-plus-shell');

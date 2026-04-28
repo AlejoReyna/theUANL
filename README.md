@@ -5,6 +5,7 @@ Chrome Extension Manifest V3 for modernizing the UANL SIASE portal at `https://d
 ## Features
 
 - Modern reskin for SIASE `top`, `left`, and `center` frames.
+- Dashboard-style landing experience for `eselcarrera.htm`, preserving the legacy career selector and service forms while adding a modern hero, quick-access cards, sidebar reminders, and themed panels.
 - Popup dashboard with cached grades and schedule.
 - Grade-change notifications from a background service worker.
 - Schedule parsing and `.ics` export.
@@ -136,3 +137,6 @@ After each major UI change, I ran the project build to make sure the TypeScript 
 
 The latest build completed successfully.
 
+### Career Landing Dashboard
+
+The `eselcarrera.htm` post-login landing page is handled by a dedicated content script (`src/content/career-landing.ts`) because it uses legacy tables, hover-swapped absolute panels, and CGI forms that must remain intact. It shares the center-frame theme tokens through `src/content/theme.ts` and scopes its CSS under `body.siase-plus-career-landing`.

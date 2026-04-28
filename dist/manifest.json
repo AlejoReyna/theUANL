@@ -29,7 +29,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/frameset-injector.ts-loader--RHArjLZ.js"
+        "assets/frameset-injector.ts-loader-C8OiZ3M-.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*default.htm*"
@@ -39,7 +39,7 @@
     },
     {
       "js": [
-        "assets/top-frame.ts-loader-O16zFeRU.js"
+        "assets/top-frame.ts-loader-XfHOQ2rA.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*maintop.htm*"
@@ -52,7 +52,7 @@
     },
     {
       "js": [
-        "assets/left-frame.ts-loader-DLm-5TRH.js"
+        "assets/left-frame.ts-loader-BHk27-ad.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*mainleftdin01.htm*"
@@ -65,7 +65,7 @@
     },
     {
       "js": [
-        "assets/center-frame.ts-loader-j98Iq2lK.js"
+        "assets/center-frame.ts-loader-ZKs4y_JK.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/*maincenter.htm*"
@@ -78,7 +78,20 @@
     },
     {
       "js": [
-        "assets/router.ts-loader-BnRCUEkQ.js"
+        "assets/career-landing.ts-loader-BC--dpl5.js"
+      ],
+      "matches": [
+        "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/eselcarrera.htm*"
+      ],
+      "css": [
+        "src/content/styles/center.css"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle"
+    },
+    {
+      "js": [
+        "assets/router.ts-loader-Cnru1r2F.js"
       ],
       "matches": [
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/econcfs01.htm*",
@@ -103,24 +116,28 @@
       "resources": [
         "src/content/styles/shadow.css",
         "icons/*.png",
-        "assets/single-view-layout-CjfIBAyQ.js",
-        "assets/single-view-layout-CjfIBAyQ.js.map",
-        "assets/frameset-injector.ts-DmTklrWy.js",
-        "assets/frameset-injector.ts-DmTklrWy.js.map",
-        "assets/dom-Df3yQYNr.js",
-        "assets/dom-Df3yQYNr.js.map",
+        "assets/single-view-layout-BkYzni2q.js",
+        "assets/single-view-layout-BkYzni2q.js.map",
+        "assets/frameset-injector.ts-BRF_yYeh.js",
+        "assets/frameset-injector.ts-BRF_yYeh.js.map",
+        "assets/dom-3YFWrmpq.js",
+        "assets/dom-3YFWrmpq.js.map",
         "assets/storage-CGf68QnW.js",
         "assets/storage-CGf68QnW.js.map",
-        "assets/top-frame.ts-CZLgNfYr.js",
-        "assets/top-frame.ts-CZLgNfYr.js.map",
+        "assets/top-frame.ts-Wzbjb-7f.js",
+        "assets/top-frame.ts-Wzbjb-7f.js.map",
         "assets/jsx-runtime-18NIdeNA.js",
         "assets/jsx-runtime-18NIdeNA.js.map",
-        "assets/left-frame.ts-NmYFs-P3.js",
-        "assets/left-frame.ts-NmYFs-P3.js.map",
-        "assets/center-ui-D0KuRq1p.js",
-        "assets/center-ui-D0KuRq1p.js.map",
-        "assets/center-frame.ts-BEQUg-vV.js",
-        "assets/center-frame.ts-BEQUg-vV.js.map"
+        "assets/left-frame.ts-BL9UdBb2.js",
+        "assets/left-frame.ts-BL9UdBb2.js.map",
+        "assets/center-ui-BTk3QlLo.js",
+        "assets/center-ui-BTk3QlLo.js.map",
+        "assets/theme-DGOVaEIk.js",
+        "assets/theme-DGOVaEIk.js.map",
+        "assets/center-frame.ts-Bj9rilB0.js",
+        "assets/center-frame.ts-Bj9rilB0.js.map",
+        "assets/career-landing.ts-DDiM3apu.js",
+        "assets/career-landing.ts-DDiM3apu.js.map"
       ],
       "use_dynamic_url": false
     },
@@ -134,14 +151,16 @@
         "https://deimos.dgi.uanl.mx/*"
       ],
       "resources": [
-        "assets/center-ui-D0KuRq1p.js",
-        "assets/center-ui-D0KuRq1p.js.map",
-        "assets/dom-Df3yQYNr.js",
-        "assets/dom-Df3yQYNr.js.map",
+        "assets/center-ui-BTk3QlLo.js",
+        "assets/center-ui-BTk3QlLo.js.map",
+        "assets/dom-3YFWrmpq.js",
+        "assets/dom-3YFWrmpq.js.map",
         "assets/storage-CGf68QnW.js",
         "assets/storage-CGf68QnW.js.map",
-        "assets/router.ts-jMUTxzY0.js",
-        "assets/router.ts-jMUTxzY0.js.map"
+        "assets/theme-DGOVaEIk.js",
+        "assets/theme-DGOVaEIk.js.map",
+        "assets/router.ts-DBR5AR5e.js",
+        "assets/router.ts-DBR5AR5e.js.map"
       ],
       "use_dynamic_url": false
     }

@@ -37,6 +37,13 @@
       "run_at": "document_idle"
     },
     {
+      "matches": ["https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/eselcarrera.htm*"],
+      "js": ["src/content/career-landing.ts"],
+      "css": ["src/content/styles/center.css"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    },
+    {
       "matches": [
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/econcfs01.htm*",
         "https://deimos.dgi.uanl.mx/cgi-bin/wspd_cgi.sh/echalm01.htm*",
